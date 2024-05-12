@@ -1,47 +1,77 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ua">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Вікно реєстрації та авторизації</title>
+
     <link rel="stylesheet" href="CSS/style.css">
-    <title>Document</title>
+    <script src="JS/script.js" defer></script>
+    <script src="JS/script_form.js"></script>
+
 </head>
 
 <body>
-    <?php require "blocks/header.php" ?>    
 
-    <div class="container mt-5">
-        <h3 class="mb-5">Статьи</h3>
+    <article class="container">
 
-        <div class = "d-flex flex-wrap">
-            <?php
-                for ($i = 0; $i < 5; $i++):
-            ?>
-            
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Просто текст</h4>
-                </div>
-                <div class="card-body">
-                    <img src="IMG\Picture-<?php echo $i+1?>.jpg" class="img-thumbnail">
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>10 users included</li>
-                        <li>2 GB of storage</li>
-                        <li>Email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Подробнее</button>
-                </div>
-            </div>
-            
-            <?php endfor; ?>
+        <div class="block">
+
+            <section class="block__item block-item">
+                <h2 class="block-item__title">У вас вже є акаунт?</h2>
+                <button class="block-item__btn signin-btn">Війти</button>
+            </section>
+            <section class="block__item block-item">
+                <h2 class="block-item__title">У вас немає акаунту?</h2>
+                <button class="block-item__btn signup-btn">Зареєструватися</button>
+            </section>
+
         </div>
-    </div>
 
-    <?php require "blocks/footer.php" ?> 
 
+        <div class="form-box">
+
+
+            <form action="actions/login.php" method="post" class="form form_signin" name="signinForm" onsubmit="return checkSignInForm();">
+                <h3 class="form__title">Вхід</h3>
+
+                <p>
+                    <input type="login" class="form__input" placeholder="Логін" name="login" oninput="removeError('signinForm', 'login');">
+                </p>
+
+                <p>
+                    <input type="password" class="form__input" placeholder="Пароль" name="password" oninput="removeError('signinForm', 'password');">
+                </p>
+
+                <p>
+                    <button type="submit" class="form__btn">Війти</button>
+                </p>
+
+                <p>
+                    <a href="#" class="form__forgot">Відновити Пароль</a>
+                </p>
+
+            </form>
+
+
+
+            <form method="post" class="form form_signup" id = "signupForm" name="signupForm">
+                <h3 class="form__title">Реєстрація</h3>
+
+                <p><input type="login" class="form__input" placeholder="Логін" name="login" oninput="removeError('signupForm', 'login');"></p>
+
+                <p><input type="email" class="form__input" placeholder="Email" name="email" oninput="removeError('signupForm', 'email');"></p>
+
+                <p><input type="password" class="form__input" placeholder="Пароль" name="password" oninput="removeError('signupForm', 'password');"></p>
+
+                <p><input type="password" class="form__input" placeholder="Підтвердіть пароль" name="repassword" oninput="removeError('signupForm', 'repassword');"></p>
+
+                <p><button type="submit" class="form__btn form__btn__signup">Зареєструватися</button></p>
+            </form>
+        </div>
+    </article>
 </body>
 </html>

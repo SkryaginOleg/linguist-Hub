@@ -1,0 +1,339 @@
+header {
+    background-color:  #1d2024;
+    color: rgb(255, 255, 255);
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    
+    }
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    
+    .header-buttons {
+        display: flex;
+        gap: 50px;
+        margin-right: 750px;
+        background-color: transparent;
+    }
+    
+    .header-buttons button {
+        padding: 8px 8px; 
+                border-radius: 5px;
+                background-color: rgba(0,0,0,0.5); 
+                color: white; 
+                border: none; 
+                cursor: pointer;
+                background-color: transparent;
+                font-size: 18px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+                margin-top: 4px;
+    }
+    
+    .header2-buttons {
+        display: flex;
+        gap: 50px;
+        margin-right: 5px;
+        background-color: transparent;
+    }
+    
+    .header2-buttons button {
+        padding: 8px 15px; 
+                border-radius: 5px;
+                background-color: rgba(0,0,0,0.5);  
+                color: white; 
+                border: none; 
+                cursor: pointer;
+                background-color: transparent;
+                font-size: 18px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+                margin-top: 4px;
+    }
+    
+    .header2-buttons button img {
+        width: 20px; 
+        height: 20px; 
+        object-fit: cover; 
+    }
+    
+    .content {
+        display: flex; 
+        flex-direction: column; 
+        gap: 0px; 
+    }
+    
+    .area {
+        padding: 200px; 
+        border-radius: 0px;
+        
+    }
+    
+    .area-content {
+       
+         color: white;
+         font-size: 40px;
+    }
+    .area2-content {
+        
+         color: white;
+         font-size: 25px;
+         padding: 15px;
+         
+    }
+    
+            .area:nth-child(1) { 
+                text-align: center;
+                background: url('https://www.wikihow.com/images/0/0d/Which_friend_are_you.png') no-repeat center/cover;
+                border-image: fill 0 linear-gradient(#0007, #000);
+                background-color: black;
+                background-size: cover;
+                background-position: center;  
+                
+                 }                      
+    
+            .area:nth-child(2){ 
+                background-color: #192444;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 550px;
+             }
+    
+             .row {
+                
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 20px; 
+            }
+            
+            .block {
+                
+                width: 320px; 
+                margin-left: 200px;
+                margin-right: 200px;
+                padding: 10px;      
+                text-align: center; 
+                font-size: 20px;
+                color: white;
+            }
+            
+            .block img {
+                
+                width: 50px; 
+                height: 50px; 
+                margin-bottom: 5px; 
+                background-color: transparent;
+            }
+            
+            .block h3 {
+                
+                margin-bottom: 10px; 
+                color: white;
+                font-size: 22px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+            }
+    
+            .area:nth-child(3) { 
+                background-color: #f9c36c;
+                box-shadow: 0px 0px 10px rgb(0, 0, 0);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+    
+            .block2 {
+                
+                width: 320px; 
+                margin-left: 200px;
+                margin-right: 200px;
+                padding: 10px;      
+                text-align: center; 
+                font-size: 20px;
+                color: black;
+            }
+            
+            .top-text{
+                font-size: 34px;
+                margin-top: 80px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+    
+            .area:nth-child(4) { 
+                background-color: #192444;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 60px;
+             }
+    
+             .top-text-area-four {
+                color: white;
+                font-size: 30px;
+                margin-bottom: 20px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            
+            .bottom-text-area-four {
+                color: white;
+                font-size: 18px;
+                margin-bottom: 50px;
+            }
+            
+            .photos-area-four {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px; 
+            }
+            
+            .photo-area-four {
+                text-align: center;
+                margin-right: 50px;
+                margin-left: 50px;
+            }
+            
+            .photo-area-four img {
+                width: 150px; 
+                height: 150px;
+                object-fit: cover;
+                border-radius: 50%;
+                margin-bottom: 5px;
+                gap: 20px;
+            }
+            
+            .button-area-four {
+                background-color: #f9c36c;
+                border: none;
+                padding: 5px 10px;
+                margin-right: 77px;
+                margin-left: 77px;
+                border-radius: 5px;
+                cursor: pointer;
+            
+            }
+    
+            .area:nth-child(5) { 
+                background-color: #f9c36c;
+                box-shadow: 0px 0px 10px rgb(0, 0, 0);
+                padding: 50px;
+                
+             }
+    
+             .top-text-area-five {
+                text-align: center;
+                font-size: 30px;
+                margin-bottom: 20px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+    
+            .text {
+                color: black;
+                margin-left: 20px;
+                margin-right: 20px;
+                font-size: 25px;
+            }
+            
+            .sub-text {
+                color: black;
+                font-size: 20px;
+            }
+    
+            .block-content {
+                display: flex;
+                align-items: center;
+            }
+            .block3 {
+                width: 30%;
+                background-color: #ffffff;
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+                padding: 10px;
+                margin-left: 20px;
+                margin-right: 20px;
+                margin-top: 50px;
+                height: 130px;
+            }
+    
+            .image {
+                margin-right: 10px;
+                width: 50px;
+                height: 50px;
+            }
+    
+            .image img {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+            }
+    
+            .area:nth-child(6) { 
+                background-color: #192444;
+                padding: 10px;
+            }
+    
+            .footer-area {
+                background-color: #333333;
+                color: #ffffff;
+                padding: 20px;
+            }
+            
+            .footer-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            
+            .footer-text {
+                font-size: 16px;
+            }
+            
+            .footer-text-center {
+                text-align: center;
+                font-size: 16px;
+                margin-left: 860px;
+            }
+            
+            .footer-buttons {
+                display: flex;
+                gap: 10px;
+                margin-right: 1300px;
+            }
+    
+            .footer-buttons button {
+                background-color: transparent; 
+                color: white; 
+                border: none; 
+                cursor: pointer;    
+                background-size: cover;       
+            }
+    
+            .footer-buttons button img {
+                width: 50px; 
+                height: 50px; 
+                object-fit: cover; 
+                border-radius: 50%;
+                background-color: transparent;
+                
+            }
+            
+    
+            .footer2-buttons button {
+                background-color: transparent; 
+                color: white; 
+                border: none; 
+                cursor: pointer;   
+            }
+    
+            .footer2-buttons {
+                display: flex;
+                gap: 10px;
+            }
+            
+    
+            

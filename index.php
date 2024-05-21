@@ -53,7 +53,7 @@
                 <p>
                 <?php
     $params = array(
-        'client_id'     => '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com',
+        'client_id'     => 'YOUR ID',
         'redirect_uri'  => 'http://localhost/Linguist%20Hub/index.php', // Ensure this matches with Google Console
         'response_type' => 'code',
         'scope'         => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
@@ -66,8 +66,8 @@
     if (!empty($_GET['code'])) {
         // Sending the code to get the token (POST request).
         $params = array(
-            'client_id'     => '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com',
-            'client_secret' => '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',
+            'client_id'     => 'YOUR ID',
+            'client_secret' => 'YOUR SECRET',
             'redirect_uri'  => 'http://localhost/Linguist%20Hub/index.php', // Ensure this matches with Google Console
             'grant_type'    => 'authorization_code',
             'code'          => $_GET['code']

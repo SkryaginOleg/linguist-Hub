@@ -51,6 +51,55 @@
                 </p>
 
                 <p>
+                <?php
+    $params = array(
+        'client_id'     => '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com',
+        'redirect_uri'  => 'http://localhost/Linguist%20Hub/index.php', // Ensure this matches with Google Console
+        'response_type' => 'code',
+        'scope'         => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+        'state'         => '123'
+    );
+
+    $url = 'https://accounts.google.com/o/oauth2/auth?' . http_build_query($params); // Changed urldecode to http_build_query
+    echo '<a href="' . $url . '">Авторизация через Google</a>';
+
+    if (!empty($_GET['code'])) {
+        // Sending the code to get the token (POST request).
+        $params = array(
+            'client_id'     => '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com',
+            'client_secret' => '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',
+            'redirect_uri'  => 'http://localhost/Linguist%20Hub/index.php', // Ensure this matches with Google Console
+            'grant_type'    => 'authorization_code',
+            'code'          => $_GET['code']
+        );
+
+        $ch = curl_init('https://accounts.google.com/o/oauth2/token');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params)); // Changed to http_build_query
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Set to true for security
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        $data = json_decode($data, true);
+        if (!empty($data['access_token'])) {
+            // Token received, now getting user data.
+            $params = array(
+                'access_token' => $data['access_token'],
+            );
+
+            $info = file_get_contents('https://www.googleapis.com/oauth2/v1/userinfo?' . http_build_query($params)); // Changed urldecode to http_build_query
+            $info = json_decode($info, true);
+                $user_email = $info['email'];
+                $user_name = $info['name'];
+               
+               
+            echo $user_email . $user_name ;
+        }
+    }
+?>
+
+                
                     <a href="#" class="form__forgot">Відновити Пароль</a>
                 </p>
 

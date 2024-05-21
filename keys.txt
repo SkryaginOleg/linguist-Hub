@@ -1,4 +1,3 @@
 For Google API
 
-client_id     = '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com'
-client_secret = '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'
+https://docs.google.com/document/d/13-fdoWGarkRB7n2-7QDM7p8u-Js8r4pHnFH-JNGGr7A/edit?usp=sharing

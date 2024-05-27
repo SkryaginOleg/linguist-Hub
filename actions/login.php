@@ -1,22 +1,23 @@
 <?php
 
-require_once __DIR__ . '/../db.php';
-require_once __DIR__ . '/../helper.php';
+require_once __DIR__ . '/../DataBase/db.php';
 
 $login = $_POST['login'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM `user` WHERE name = '$login' AND password = '$password'";
-$result = $conn -> query($sql);
 
+$sql = "SELECT * FROM `User` WHERE email = '$login' AND password = '$password' FOR UPDATE";
+$result = $conn->query($sql);
 
-if($result -> num_rows > 0){
+if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
 
-    setcookie('user', $row['id_user'], time() + 3600 * 24, "/");
-    header ("Location: /Linguist Hub\main.php");
+    setcookie('user', $row['user_id'], time() + 3600 * 24, "/");
+    session_start();
+    $_SESSION['user'] = $row['user_id'];
 
-}else{
-    echo"No";
+    $conn->commit();
+    header("Location: ../index.php");
+} else {
+    echo "No";
 }
-

@@ -9,7 +9,7 @@ if (isset($_POST['save'])) {
     if (!empty($_FILES['img_upload']['tmp_name']) and $img_type === 'image' and $_FILES['img_upload']['size'] < $img_size) {
         $img_blob = addslashes(file_get_contents($_FILES['img_upload']['tmp_name']));
         //$user_id = intval($_COOKIE['user']);
-        $userId = isset($_SESSION['user']) ? $_SESSION['user'] : '';
+        $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
 
         $conn->query("UPDATE User SET photo = '$img_blob' WHERE user_id = $userId");
     }
@@ -17,14 +17,14 @@ if (isset($_POST['save'])) {
 
 if (isset($_POST['delete'])) {
     //$user_id = intval($_COOKIE['user']);
-    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : '';
+    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
     $conn->query("UPDATE User SET photo = NULL WHERE user_id = $userId");
 }
 
 
 if (isset($_COOKIE['user'])) {
 
-    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : '';
+    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
     
     $query = $conn->query("SELECT photo FROM User WHERE user_id = " . $userId . "");
     $row = $query->fetch_assoc();

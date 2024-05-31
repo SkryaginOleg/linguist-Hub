@@ -101,486 +101,60 @@
                             <div class="m1cr2">
                                 <div class="scroll-container">
                                     <h1>Online</h1>
-
+                         
                                     <div class="m1cr2first">
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <div class="dropdown">
-
-                                                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Open profile</a>
-                                                        <a href="#">Write message</a>
-                                                        <a href="#">Create meeting</a>
-                                                        <a href="#">Delete from friends</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
+                                        
+                                    <?php 
+require_once("DataBase/db.php");
+if(isset($_COOKIE['user'])){
+    $user = intval($_COOKIE['user']);
+}
+$query = 'SELECT `User`.* FROM `User` JOIN `Friends` ON `User`.`user_id` = `Friends`.`User_id2` WHERE `Friends`.`User_id1` = ?';
+$stmt = $conn->prepare($query);
+$stmt->bind_param('i', $user);
+// Виконання запиту
+$stmt->execute();
+
+// Отримання результатів
+$result = $stmt->get_result();
+
+
+    while ($row = $result->fetch_assoc()) {
+        $photo = base64_encode($row['photo']);
+            echo '<div class="m1cr2first1">
+            <div class="m1cr2first1column1">
+                <img src="data:image/jpeg;base64,' . $photo . '">
+                <p>'.$row['full_name'].'</p>
+            </div>
+
+            <div class="m1cr2first1column2">
+                <div class="dropdown">
+
+                    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
+                    <div class="dropdown-content">
+                        <a href="#">Open profile</a>
+                        <a href="#">Write message</a>
+                        <a href="#">Create meeting</a>
+                        <a href="delfriends.php?delid='.$row['user_id'].'">Delete from friends</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>';
+
+    }
+$stmt->close();
+$conn->close();
+
+
+?>
+                    
                                     </div>
+
+                                 
+
+# -------------------------------------------------------------------------------------------------------                        
                                     <h1>Offline</h1>
 
                                     <div class="m1cr2first">

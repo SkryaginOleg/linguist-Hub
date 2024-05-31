@@ -162,7 +162,8 @@ if ($result->num_rows > 0) {
      
      // Execute the insert statement
      if ($stmt->execute()) {
-        setcookie("user", $user_id, time() + 60*60*60);
+        $user_id = $stmt->insert_id;
+        setcookie('user', $user_id, time() + 60*60*60);
         header("Location: index.php");
      } else {
          echo "Error inserting user: " . $conn->error;

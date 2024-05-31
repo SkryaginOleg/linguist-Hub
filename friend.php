@@ -12,26 +12,24 @@
 
 <body>
 
-    <header>
-        <div class="area1">
-            <img src="logo.png" width="30" height="30">
-            <button>Home</button>
-            <button>Features</button>
-            <button>Img</button>
-            <button>Chat</button>
-            <button>Courses</button>
-        </div>
-        <div class="area2">
-            <button><img src=""></button>
-            <button>Sign-up</button>
-        </div>
-    </header>
+   <?php
+   require_once("blocks/header.php");
+   ?>
 
     <div class="content-area">
 
         <div class="row1">
-            <img src="">
-            <h1>Full Name</h1>
+            <?php
+    require_once("DataBase/db.php");
+    $user_id = $_COOKIE['user'];
+    $query = 'SELECT * FROM User WHERE user_id = '.$user_id.'';
+    $result = $conn->query($query);
+    $row = $result->fetch_assoc();
+    $photo = base64_encode($row['photo']);
+            
+          echo' <img src="data:image/jpeg;base64,' . $photo . '">';
+            echo '<h1>'.$row['full_name'].'</h1>';
+            ?>
         </div>
 
         <div class="row2">
@@ -132,10 +130,10 @@ $result = $stmt->get_result();
 
                     <button onclick="toggleDropdown(this)" class="dropbtn"></button>
                     <div class="dropdown-content">
-                        <a href="#">Open profile</a>
+                        <a href="profile.php?id='.$row['user_id'].'">Open profile</a>
                         <a href="#">Write message</a>
                         <a href="#">Create meeting</a>
-                        <a href="delfriends.php?delid='.$row['user_id'].'">Delete from friends</a>
+                        <a href="#">Delete from friends</a>
                     </div>
 
                 </div>

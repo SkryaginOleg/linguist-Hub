@@ -9,7 +9,11 @@
     border-radius: 0px;
 
 }
-
+body{
+    margin: 0;
+    padding: 0;
+    
+    }
 .area-content {
 
     color: white;

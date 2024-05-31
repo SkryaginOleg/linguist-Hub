@@ -44,7 +44,7 @@
             <div class="chat-message-send">
                 <form id="chat-message-send">
                     <div class="input-group mb-0">
-                        <input type="text" id="message_text" class="form-control" placeholder="Введите сообщение...">
+                        <input type="text" id="message_text" class="form-control" placeholder="Введіть повідомлення...">
                         <span class="input-group-text"><button type="submit"><span class="icon-compass"></span></button></span>
                     </div>
                 </form>

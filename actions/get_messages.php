@@ -121,22 +121,66 @@ elseif ($_GET['action'] == 'get_chat') {
     }
 }
 
+//PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE
 
 elseif ($_GET['action'] == 'get_user') {
     $userId = isset($_SESSION['user']) ? $_SESSION['user'] : '';
 
     if (!empty($userId)) {
-        $sql = "SELECT full_name, email, country, information FROM User WHERE user_id = :userId";
+        $sql = "SELECT full_name, email, country, information, birthday, ban_status, password, photo FROM User WHERE user_id = :userId";
         try {
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+            foreach ($result as &$row) {
+                if (!empty($row['photo'])) {
+                    $row['photo'] = 'data:image/jpeg;base64,' . base64_encode($row['photo']);
+                }
+            }
+
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($result);
         } catch (PDOException $e) {
+            error_log('Database query error: ' . $e->getMessage());
 
+            http_response_code(500);
+            echo json_encode(['error' => 'Internal Server Error']);
+        }
+    } else {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid User ID']);
+    }
+}
+
+
+elseif ($_GET['action'] == 'get_friends') {
+    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : '';
+
+    if (!empty($userId)) {
+        $sql = "SELECT u.user_id, u.full_name, u.email, u.country, u.information, u.birthday, u.ban_status, u.photo 
+                FROM User u
+                JOIN Friends f ON (u.user_id = f.User_id2 AND f.User_id1 = :userId) OR (u.user_id = f.User_id1 AND f.User_id2 = :userId)";
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($result as &$row) {
+                if (!empty($row['photo'])) {
+                    $row['photo'] = 'data:image/jpeg;base64,' . base64_encode($row['photo']);
+                }
+                else{
+                    $default_image_path = "../IMG/user_male4-256.webp";
+                    $row['photo'] = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($default_image_path));
+                }
+            }
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($result);
+        } catch (PDOException $e) {
             error_log('Database query error: ' . $e->getMessage());
 
             http_response_code(500);

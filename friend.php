@@ -66,18 +66,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 ?>
 <?php
 require('DataBase/db.php');
+// Проверяем наличие куки 'user' и устанавливаем значение $user_id
+$user_id = isset($_COOKIE['user']) ? $_COOKIE['user'] : 0;
 
-$user_id = $_COOKIE['user'];
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addgroup' && isset($_POST['groupname'])){
     $name = $_POST['groupname'];
     $currentDate = date('Y-m-d');
+
     // Используем подготовленный запрос для безопасности
-    $query = 'INSERT INTO Chat(name,date) VALUES(?,?)';
+    $query = 'INSERT INTO Chat(name, date) VALUES (?, ?)';
+  
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('ss', $name,$currentDate);
+    $stmt->bind_param('ss', $name, $currentDate);
     
     if ($stmt->execute()) {
-        echo 'Success';
+        $chat_id = $stmt->insert_id;
+
+        // Insert into Member table
+        $query2 = 'INSERT INTO Member(user_id, chat_id) VALUES (?, ?)';
+        $stmt2 = $conn->prepare($query2);
+        $stmt2->bind_param('ii', $user_id, $chat_id);
+
+        if ($stmt2->execute()) {
+            echo 'Success';
+        } else {
+            echo 'Error inserting into Member table: ' . $stmt2->error;
+        }
     } else {
         echo 'Error';
     }

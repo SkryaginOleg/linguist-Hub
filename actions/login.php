@@ -11,10 +11,10 @@ $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
-
-    setcookie('user', $row['user_id'], time() + 3600 * 24, "/");
     session_start();
     $_SESSION['user'] = $row['user_id'];
+    setcookie('user', $row['user_id'], time() + 3600 * 24, "/");
+    
 
     $conn->commit();
     header("Location: ../index.php");

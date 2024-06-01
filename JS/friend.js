@@ -3,8 +3,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const modals = document.querySelectorAll('.modal');
     const closeButtons = document.querySelectorAll('.close');
     const textField = document.getElementById('text-field');
+    const deleteLinks = document.querySelectorAll('.delete-friend');
 
- 
+    function addFriend(idfrom, idadd) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "add_friend.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert(xhr.responseText);
+            }
+        };
+        xhr.send("idfrom=" + idfrom + "&idadd=" + idadd);
+    }
     function closeAllModals() {
         modals.forEach(modal => modal.style.display = 'none');
     }
@@ -15,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const modal = document.getElementById(modalId);
 
             if (modal) {
-                
                 closeAllModals();
                 modal.style.display = 'block';
                 textField.textContent = this.textContent.trim();
@@ -37,12 +47,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    deleteLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            const userId = this.getAttribute('data-user-id');
+            deleteFriend(userId);
+        });
+    });
+
+    function deleteFriend(userId) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'friend.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const friendElement = document.querySelector(`.m1cr2first1[data-user-id="${userId}"]`);
+                if (friendElement) {
+                    friendElement.remove();
+                }
+            }
+        };
+        xhr.send('action=delete&user_id=' + userId);
+    }
 });
 
-
-
 function toggleDropdown(button) {
-  
     var dropdowns = document.getElementsByClassName("dropdown-content");
     for (var i = 0; i < dropdowns.length; i++) {
         var openDropdown = dropdowns[i];
@@ -54,7 +84,6 @@ function toggleDropdown(button) {
         }
     }
 
-  
     var dropdown = button.nextElementSibling;
     if (dropdown.style.display === 'block') {
         dropdown.classList.remove('show');
@@ -69,7 +98,6 @@ function toggleDropdown(button) {
     }
 }
 
-
 window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -83,7 +111,8 @@ window.onclick = function(event) {
             }
         }
     }
-}
+};
+
 
 
 

@@ -88,13 +88,13 @@
                 </p>
 
                 <?php
-require_once 'LibApi/vendor/autoload.php';
+require_once 'LibApi'.'/vendor/autoload.php';
 
 $clientID = '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com';
 $clientSecret = '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';
 $redirectUri = 'http://localhost/registration.php';
 
-$client = new Google_Client();
+$client = new Google\Client();
 $client->setClientId($clientID);
 $client->setClientSecret($clientSecret);
 $client->setRedirectUri($redirectUri);
@@ -149,6 +149,8 @@ if ($result->num_rows > 0) {
     
     // Extract user ID
     $user_id = $user["user_id"];
+    session_start();
+    $_SESSION['user'] = $user_id;
     setcookie("user", $user_id, time() + 60*60*60);
      header("Location: index.php");
   
@@ -164,6 +166,8 @@ if ($result->num_rows > 0) {
      if ($stmt->execute()) {
         $user_id = $stmt->insert_id;
         setcookie('user', $user_id, time() + 60*60*60);
+        session_start();
+        $_SESSION['user'] = $user_id;
         header("Location: index.php");
      } else {
          echo "Error inserting user: " . $conn->error;

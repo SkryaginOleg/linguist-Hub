@@ -124,8 +124,14 @@ elseif ($_GET['action'] == 'get_chat') {
 //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE
 
 elseif ($_GET['action'] == 'get_user') {
-    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-
+    
+    if(isset($_COOKIE['id'])) {
+    $userId = $_COOKIE['id'];
+    setcookie('id', $userId, time() + 0);
+    }
+    else{
+    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
+    }
     if (!empty($userId)) {
         $sql = "SELECT full_name, email, country, information, birthday, ban_status, password, photo FROM User WHERE user_id = :userId";
         try {

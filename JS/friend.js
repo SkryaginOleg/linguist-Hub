@@ -5,6 +5,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const textField = document.getElementById('text-field');
     const deleteLinks = document.querySelectorAll('.delete-friend');
 
+    function searchGroups() {
+        const groupname = document.getElementById('groupname').value;
+        fetch('', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'groupname=' + encodeURIComponent(groupname),
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('results').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+ 
     function addFriend(idfrom, idadd) {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "add_friend.php", true);

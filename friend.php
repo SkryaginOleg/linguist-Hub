@@ -1,3 +1,45 @@
+
+<?php
+// Подключение к базе данных
+require('DataBase/db.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['groupname'])) {
+    $groupname = $_POST['groupname'];
+    
+    $sql = "SELECT * FROM `Chat` WHERE `name` LIKE ?";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die("Prepare failed: " . htmlspecialchars($conn->error));
+    }
+    $param = "%" . $groupname . "%";
+    $stmt->bind_param("s", $param);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $photoSrc = !empty($row['photo']) ? 'data:image/jpeg;base64,' . base64_encode($row['photo']) : 'path/to/default/image.jpg'; // Default image if photo is NULL
+            echo '
+            <div class="m1cr2first1">
+                <div class="m1cr2first1column1">
+                    <img src="' . $photoSrc . '" alt="Group Photo">
+                    <p>' . htmlspecialchars($row['name']) . '</p>
+                </div>
+                <div class="m1cr2first1column2">
+                    <button>Join Group</button>
+                </div>
+            </div>';
+        }
+    } else {
+        echo 'No results found';
+    }
+
+    $stmt->close();
+    $conn->close();
+    exit; // Остановить выполнение PHP скрипта после вывода результата
+}
+?>
+
 <?php
 require("DataBase/db.php");
 
@@ -177,6 +219,13 @@ if (isset($_POST['username'])) {
     exit; // Остановить выполнение PHP скрипта после вывода результата
 }
 ?>
+
+
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="ua">
@@ -1298,331 +1347,59 @@ echo '
                     </div>
 
                     <div id="modal7" class="modal">
-
-                        <div class="modal7-content">
-
-                            <div class="groupsearch">
-                                <img src="">
-                                <input class="input4">
-                            </div>
-
-                            <div class="grouppar">
-
-                                <div class="groupparcl1">
-                                    <p>Language:</p>
-                                    <select>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-
-                                <div class="groupparcl2">
-                                    <p>Number of people:</p>
-                                    <select>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            <div class="groupres">
-
-                                <div class="scroll-container">
-                                    <div class="m1cr2first">
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                                <img src="">
-                                                <p>Full name</p>
-                                            </div>
-
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
+    <div class="modal7-content">
+        <div class="groupsearch">
+            <img src="">
+            <input type="text" id="groupname" required onkeyup="searchGroup()">
+        </div>
+        <div class="grouppar">
+            <div class="groupparcl1">
+                <p>Language:</p>
+                <select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="groupparcl2">
+                <p>Number of people:</p>
+                <select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+        <div class="groupres">
+            <div class="scroll-container">
+                <div class="m1cr2first" id="result">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function searchGroup() {
+        const groupname = document.getElementById('groupname').value;
+        console.log("Searching for: " + groupname); // Debug message
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("Response received: " + xhr.responseText); // Debug message
+                document.getElementById('result').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send('groupname=' + encodeURIComponent(groupname));
+    }
+</script>
 
                     <div id="modal8" class="modal">
 
@@ -1671,6 +1448,7 @@ echo '
                                 <div class="creategroupbox">
                                     <button class="add-group">Create!</button>
                                 </div>
+   
 <script>
     
 $(document).on('click', '.add-group', function(e) {

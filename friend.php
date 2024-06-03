@@ -1,4 +1,79 @@
+<?php
+require_once('DataBase/db.php');
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_ids'])) {
+    $user_ids = $_POST['user_ids'];
+
+    if (is_array($user_ids) && count($user_ids) > 0) {
+        $chat_id = $_COOKIE['chat']; // замените на ваш текущий chat_id
+
+        foreach ($user_ids as $user_id) {
+            $query = 'INSERT INTO Member (chat_id, user_id) VALUES (?, ?)';
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('ii', $chat_id, $user_id);
+            $stmt->execute();
+        }
+        
+        echo 'Participants added successfully';
+    } else {
+        echo 'No users selected';
+    }
+} 
+?>
+
+
+<?php
+require('DataBase/db.php');
+
+if (isset($_COOKIE['user'])) {
+    $user_id = intval($_COOKIE['user']);
+} else {
+    echo 'User not logged in';
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addgroup' && isset($_POST['groupname'])) {
+    $name = $_POST['groupname'];
+    $currentDate = date('Y-m-d');
+
+    // Используем подготовленный запрос для безопасности
+    $query = 'INSERT INTO Chat(name, date) VALUES (?, ?)';
+  
+    $stmt = $conn->prepare($query);
+    if ($stmt === false) {
+        echo 'Prepare failed: ' . $conn->error;
+        exit();
+    }
+
+    $stmt->bind_param('ss', $name, $currentDate);
+    
+    if ($stmt->execute()) {
+        $chat_id = $stmt->insert_id;
+
+        // Insert into Member table
+        $query2 = 'INSERT INTO Member(user_id, chat_id) VALUES (?, ?)';
+        $stmt2 = $conn->prepare($query2);
+        if ($stmt2 === false) {
+            echo 'Prepare for Member table failed: ' . $conn->error;
+            exit();
+        }
+
+        $stmt2->bind_param('ii', $user_id, $chat_id);
+
+        if ($stmt2->execute()) {
+            echo 'Success';
+        } else {
+            echo 'Error inserting into Member table: ' . $stmt2->error;
+        }
+    } else {
+        echo 'Error executing Chat insert: ' . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
 <?php
 // Подключение к базе данных
 require('DataBase/db.php');
@@ -26,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['groupname'])) {
                     <p>' . htmlspecialchars($row['name']) . '</p>
                 </div>
                 <div class="m1cr2first1column2">
-                    <button>Join Group</button>
+                    <button></button>
                 </div>
             </div>';
         }
@@ -106,43 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     exit;
 }
 ?>
-<?php
-require('DataBase/db.php');
-// Проверяем наличие куки 'user' и устанавливаем значение $user_id
-$user_id = isset($_COOKIE['user']) ? $_COOKIE['user'] : 0;
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addgroup' && isset($_POST['groupname'])){
-    $name = $_POST['groupname'];
-    $currentDate = date('Y-m-d');
-
-    // Используем подготовленный запрос для безопасности
-    $query = 'INSERT INTO Chat(name, date) VALUES (?, ?)';
-  
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('ss', $name, $currentDate);
-    
-    if ($stmt->execute()) {
-        $chat_id = $stmt->insert_id;
-
-        // Insert into Member table
-        $query2 = 'INSERT INTO Member(user_id, chat_id) VALUES (?, ?)';
-        $stmt2 = $conn->prepare($query2);
-        $stmt2->bind_param('ii', $user_id, $chat_id);
-
-        if ($stmt2->execute()) {
-            echo 'Success';
-        } else {
-            echo 'Error inserting into Member table: ' . $stmt2->error;
-        }
-    } else {
-        echo 'Error';
-    }
-
-    $stmt->close();
-}
-
-$conn->close();
-?>
 <?php
 require("DataBase/db.php");
 
@@ -238,9 +277,8 @@ if (isset($_POST['username'])) {
     <link rel="stylesheet" href="CSS/friend.css">
     <script src="JS/friend.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Add jQuery -->
-    
+ 
 </head>
-
 
 <style>
 /* form starting stylings ------------------------------- */
@@ -482,12 +520,9 @@ input:focus ~ .highlight {
                 user_id: userIdToBlock
             },
             success: function(response) {
-                if(response === 'Success') {
-                    alert('Friend blocked successfully.');
+               
                     location.reload(); // Reload the page to reflect changes
-                } else {
-                    alert('Error blocking friend.');
-                }
+                
             }
         });
     });
@@ -506,12 +541,9 @@ input:focus ~ .highlight {
                 user_id: userIdToDelete
             },
             success: function(response) {
-                if(response === 'Success') {
-                    alert('Friend deleted successfully.');
+               
                     location.reload(); // Reload the page to reflect changes
-                } else {
-                    alert('Error deleting friend.');
-                }
+              
             }
         });
     });
@@ -720,12 +752,9 @@ $(document).on('click', '.add-friend', function(e) {
             user_id: userIdToAdd
         },
         success: function(response) {
-            if(response === 'Success') {
-                alert('Friend added successfully.');
+           
                 location.reload(); // Перезагрузить страницу, чтобы отобразить изменения
-            } else {
-                alert('Error adding friend.');
-            }
+           
         }
     });
 });
@@ -908,12 +937,9 @@ $(document).on('click', '.unblock-friend', function(e) {
             user_id: unblockuser
         },
         success: function(response) {
-            if(response === 'Success') {
-                alert('Friend unblock successfully.');
+           
                 location.reload(); // Перезагрузить страницу, чтобы отобразить изменения
-            } else {
-                alert('Error unblock friend.');
-            }
+            
         }
     });
 });
@@ -932,35 +958,53 @@ $(document).on('click', '.unblock-friend', function(e) {
 
                         <div id="modal5" class="modal">
 
-                            <div class="modal4-content">
-                                <div class="scroll-container">
-                                    <div class="m1cr2first">
+<div class="modal4-content">
+    <div class="scroll-container">
+        <div class="m1cr2first">
                                         <?php
 require_once('DataBase/db.php');
 $user_id = $_COOKIE['user'];
 $query = 'SELECT Chat.* FROM Chat JOIN Member ON Member.chat_id = Chat.chat_id WHERE Member.user_id = '.$user_id.'';
 $result = $conn->query($query);
+function cook($id){
+    setcookie('chat', $id, time()+ 24*24*60,'/');
+}
 while( $row = $result->fetch_assoc() ) {
 $photo = base64_encode($row['photo']);
 
 echo '
+<div class="m1cr2first1">
+<div class="m1cr2first1column1">
+    <img src="data:image/jpeg;base64,' . $photo . '">
+    <p>'.$row['name'].'</p>
+</div>
 
-                                        <div class="m1cr2first1">
-                                            <div class="m1cr2first1column1">
-                                            <img src="data:image/jpeg;base64,' . $photo . '">
-                                                <p>'.$row['name'].'</p>
-                                            </div>
+<div class="m1cr2first1column2">
+    <div class="dropdown">
 
-                                            <div class="m1cr2first1column2">
-                                                <button></button>
+    <button onclick="toggleDropdown(this)" class="dropbtn"></button>
+    <div class="dropdown-content">
+        <a >Leave</a>
+        <a >Write message</a>
+        <a >Create meeting</a>
+        <a  onclick="setChatCookie(' . $row['chat_id'] . ')" class = "custom1-button" data-modal="modal6" >Invite in group</a>                                                       
+    </div>
+    </div>
+</div>
 
-                                            </div>
-
-                                        </div>
-                                        ';
+</div>';
+                                        
 }
 ?>
-                                    </div>
+     <script>
+    // Функция для установки куки
+    function setChatCookie(chat_id) {
+        document.cookie = "chat=" + chat_id + ";path=/";
+        alert("Chat ID " + chat_id + " has been set in cookie");
+    }
+
+    
+</script>                               </div>
 
                                 </div>
 
@@ -972,357 +1016,102 @@ echo '
 
                     <div id="modal6" class="modal">
 
-                        <div class="modal6-content">
+<div class="modal6-content">
 
-                            <div class="createinvitehead">
-                                <h1>Invite new user to your group!</h1>
-                            </div>
+    <div class="createinvitehead">
+        <h1>Invite new user to your group!</h1>
+    </div>
 
-                            <div class="createinvite">
+    <div class="createinvite">
 
-                                <div class="createinvite1">
+        <div class="createinvite1">
 
-                                    <div class="createinvite1row1">
+            <div class="createinvite1row1">
 
-                                        <div class="findcl">
-                                            <p>Age:</p>
-                                            <select>
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="1">5</option>
-                                            </select>
-                                        </div>
+                <div class="findcl">
+                    <p>Age:</p>
+                    <select>
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                        <option value="1">5</option>
+                    </select>
+                </div>
 
-                                        <div class="findcl">
-                                            <p>Sex:</p>
-                                            <select>
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="1">5</option>
-                                            </select>
-                                        </div>
+                <div class="findcl">
+                    <p>Sex:</p>
+                    <select>
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                        <option value="1">5</option>
+                    </select>
+                </div>
 
-                                        <div class="findcl">
-                                            <p>Country:</p>
-                                            <select>
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="1">5</option>
-                                            </select>
-                                        </div>
+                <div class="findcl">
+                    <p>Country:</p>
+                    <select>
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                        <option value="1">5</option>
+                    </select>
+                </div>
 
-                                        <div class="findcl">
-                                            <p>Language:</p>
-                                            <select>
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="1">5</option>
-                                            </select>
-                                        </div>
+                <div class="findcl">
+                    <p>Language:</p>
+                    <select>
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                        <option value="1">5</option>
+                    </select>
+                </div>
 
-                                        <div class="findcl">
-                                            <p>Rating:</p>
-                                            <select>
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="1">5</option>
-                                            </select>
-                                        </div>
+                <div class="findcl">
+                    <p>Rating:</p>
+                    <select>
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                        <option value="1">5</option>
+                    </select>
+                </div>
 
-                                    </div>
+            </div>
 
                                     <div class="createinvite1row2">
 
                                         <div class="scroll-container">
                                             <div class="m1cr2first">
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
 
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="m1cr2first1">
-                                                    <div class="m1cr2first1column1">
-                                                        <img src="">
-                                                        <p>Full name</p>
-                                                    </div>
-
-                                                    <div class="m1cr2first1column2">
-                                                        <button></button>
-
-                                                    </div>
-
-                                                </div>
+<?php
+
+require_once('DataBase/db.php');
+$user_id = $_COOKIE['user'];
+$query = 'SELECT * FROM User';
+$result = $conn->query($query);
+
+while ($row = $result->fetch_assoc()) {
+    $photo = base64_encode($row['photo']);
+    echo '<div class="m1cr2first1">
+            <div class="m1cr2first1column1">
+                <img src="data:image/jpeg;base64,' . $photo . '">
+                <p>' . $row['full_name'] . '</p>
+            </div>
+            <div class="m1cr2first1column2">
+                <button class="add-user-button" data-user-id="' . $row['user_id'] . '">Add</button>
+            </div>
+          </div>';
+}
+
+
+?>                                     
 
                                             </div>
                                         </div>
@@ -1337,7 +1126,7 @@ echo '
                                 </div>
 
                                 <div class="createinvite3">
-                                    <button>Send Invite!</button>
+                                    <button id="submit-users">Send Invite!</button>
                                 </div>
 
                             </div>
@@ -1345,7 +1134,34 @@ echo '
                         </div>
 
                     </div>
+                    <script>
+    let selectedUsers = [];
 
+    $(document).on('click', '.add-user-button', function() {
+        const userId = $(this).data('user-id');
+        if (!selectedUsers.includes(userId)) {
+            selectedUsers.push(userId);
+            $(this).text('\u2714');
+        }
+    });
+
+    $('#submit-users').click(function() {
+        $.ajax({
+            url: '',
+            method: 'POST',
+            data: { user_ids: selectedUsers },
+            success: function(response) {
+                alert('Participants added successfully!');
+                // Clear the selectedUsers array and update UI accordingly
+                selectedUsers = [];
+                $('.add-user-button').text('Add');
+            },
+            error: function() {
+                alert('An error occurred while adding participants.');
+            }
+        });
+    });
+</script>
                     <div id="modal7" class="modal">
     <div class="modal7-content">
         <div class="groupsearch">
@@ -1401,6 +1217,7 @@ echo '
     }
 </script>
 
+
                     <div id="modal8" class="modal">
 
                         <div class="modal8-content">
@@ -1409,7 +1226,7 @@ echo '
 
                                 <div class="creategroupbox">
                                     <p>Name of group:</p>
-                                    <input id="group-name" class="input4">
+                                    <input type="text" id="group-name" class="input4">
                                 </div>
 
                                 <div class="creategroupbox">
@@ -1448,23 +1265,121 @@ echo '
                                 <div class="creategroupbox">
                                     <button class="add-group">Create!</button>
                                 </div>
-   
+                              
 <script>
     
-$(document).on('click', '.add-group', function(e) {
-    e.preventDefault();
-   var groupName = $('#group-name').val();
-    $.ajax({
-        type: 'POST',
-        url: '',
-        data: {
-            action: 'addgroup',
-            groupname: groupName
-        }
+    $(document).on('click', '.add-group', function(e) {
+        e.preventDefault();
+        var groupName = $('#group-name').val();
+        
+        $.ajax({
+            type: 'POST',
+            url: window.location.href, // Use the current page URL
+            data: {
+                action: 'addgroup',
+                groupname: groupName
+            },
+            success: function(response) {
+           
+            
+                    alert('Group created successfully');
+                    location.reload();
+
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', status, error); // Log more detailed error information
+                alert('Error occurred: ' + error);
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.custom-button, .custom1-button');
+    const modals = document.querySelectorAll('.modal');
+    const closeButtons = document.querySelectorAll('.close');
+    const textField = document.getElementById('text-field');
+
+ 
+    function closeAllModals() {
+        modals.forEach(modal => modal.style.display = 'none');
+    }
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            const modalId = this.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
+
+            if (modal) {
+                
+                closeAllModals();
+                modal.style.display = 'block';
+                textField.textContent = this.textContent.trim();
+            }
+        });
+    });
+     closeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const modal = this.closest('.modal');
+            modal.style.display = 'none';
+        });
+    });
+
+    window.addEventListener('click', function (event) {
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
     });
 });
-</script>
 
+
+
+function toggleDropdown(button) {
+  
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+            setTimeout(() => {
+                openDropdown.style.display = 'none';
+            }, 500); 
+        }
+    }
+
+  
+    var dropdown = button.nextElementSibling;
+    if (dropdown.style.display === 'block') {
+        dropdown.classList.remove('show');
+        setTimeout(() => {
+            dropdown.style.display = 'none';
+        }, 500); 
+    } else {
+        dropdown.style.display = 'block';
+        setTimeout(() => {
+            dropdown.classList.add('show');
+        }, 0); 
+    }
+}
+
+
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+                setTimeout(() => {
+                    openDropdown.style.display = 'none';
+                }, 500); 
+            }
+        }
+    }
+}
+</script>
                             </div>
 
                         </div>

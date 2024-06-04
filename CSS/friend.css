@@ -92,7 +92,7 @@ body {
 
 .column1 {
     display: grid;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: repeat(2, 1fr);
 }
 
 .addcolumn1 {
@@ -844,31 +844,3 @@ nav {
     background-color: #f1f1f1;
     z-index: 1000;
 }
-
-.dropdown-content button {
-    color: black;
-    text-decoration: none;
-    display: block;
-    background-color: white;
-
-}
-
-.dropdown-content button:hover {
-    background-color: #f1f1f1;
-    z-index: 1000;
-}
-
-
-.custom1-button {
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-    white-space: nowrap;
-    text-align: center;
-}
-

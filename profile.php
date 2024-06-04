@@ -1,15 +1,7 @@
-
-
 <!DOCTYPE html>
 <html lang="ua">
-<?php
-if(isset($_GET['id'])){
-    setcookie('checkuser', $_GET['id'], time()+ 20);
-}
 
-?>
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width-device-width, initial-scale=1.0">
@@ -52,21 +44,15 @@ if(isset($_GET['id'])){
                     <button>Make publication</button>
                 </div>
                 <div class="area2-part1-online-row">
-                    <button>New trip</button>
+                    <button id="createMeetingButton">New trip</button>
                 </div>
                 <div class="area2-part1-online-row">
                     <button>Add friends</button>
                 </div>
             </div>
-            <div class="area2-part1-friends">
+            <div class="area2-part1-friends" id="friends-list">
                 <div class="area2-part1-friends-row1">
                     <h1>Best friends</h1>
-                </div>
-                <div id="friends-list"></div>
-            
-                <div class="area2-part1-friends-row3">
-
-                    <button>See the full list of your friends</button>
                 </div>
             </div>
         </div>
@@ -77,92 +63,17 @@ if(isset($_GET['id'])){
                 <button data-modal="modal3">Courses</button>
             </div>
             <div class="area2-part2-row2">
+                <!-- Check meetings -->
                 <div id="modal1" class="modal">
                     <div class="modal1-content">
                         <div class="scroll-container">
-                            <div class="blockedrow2">
-                                <div class="m1cr2first12">
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1">
-                                            <img src="">
-                                        </div>
-                                        <div class="blockedinfoc1-1">
-                                            <p>Language of trip: English.</p>
-                                        </div>
-                                    </div>
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1">
-                                            <p>Amount of days: 7.</p>
-                                        </div>
-                                        <div class="blockedinfoc1-1">
-                                            <p>Trip with: Ivan Dukhota.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="m1cr2first12">
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                </div>
-                                <div class="m1cr2first12">
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                </div>
-                                <div class="m1cr2first12">
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                </div>
-                                <div class="m1cr2first12">
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                </div>
-                                <div class="m1cr2first12">
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                </div>
-                                <div class="m1cr2first12">
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                    <div class="blockedinfoc1">
-                                        <div class="blockedinfoc1-1"></div>
-                                        <div class="blockedinfoc1-1"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="meetup-list" class="meetup-list"><!-- My meetings --></div>
                         </div>
                     </div>
                 </div>
+                <!-- Check meetings -->
+
+
                 <div id="modal2" class="modal">
                     <div class="modal2-content">
                         <div class="publication-box">
@@ -285,6 +196,7 @@ if(isset($_GET['id'])){
         </div>
     </div>
 
+    <!-- Edit profile -->
     <div id="editProfileModal" class="modal-edit-profile">
         <div class="modal1-edit-content">
             <div class="edit-window">
@@ -292,17 +204,28 @@ if(isset($_GET['id'])){
                     <h1>Edit your profile</h1>
                 </div>
                 <div class="edit-window-row2">
+
                     <div class="edit-window-row2-cl1">
-                        <img src="">
-                        <button>Change photo</button>
+                        <div class="image-container">
+                            <img id="profilePhoto" src="" alt="User Image">
+                            <div class="overlay" id="photoOverlay">
+                                <img src="IMG/add_photo.png" alt="Change photo" class="overlay-image">
+                            </div>
+                        </div>
+                        <div class="photo-buttons">
+                            <button id="changePhotoButton">Change photo</button>
+                            <button id="removePhotoButton">Remove photo</button>
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                        </div>
                     </div>
+
                     <div class="edit-window-row2-cl2">
                         <div class="edit-window-row2-cl2-rows">
                             <div class="edit-window-row2-cl2-rows-rrr">
                                 <p>Name:</p>
                             </div>
                             <div class="edit-window-row2-cl2-rows-rrr">
-                                <textarea class="textarea3"></textarea>
+                                <textarea id="nameField" class="textarea3"></textarea>
                             </div>
                         </div>
                         <div class="edit-window-row2-cl2-rows">
@@ -310,7 +233,7 @@ if(isset($_GET['id'])){
                                 <p>Place of residence:</p>
                             </div>
                             <div class="edit-window-row2-cl2-rows-rrr">
-                                <textarea class="textarea3"></textarea>
+                                <textarea id="residenceField" class="textarea3"></textarea>
                             </div>
                         </div>
                         <div class="edit-window-row2-cl2-rows">
@@ -318,7 +241,7 @@ if(isset($_GET['id'])){
                                 <p>About me:</p>
                             </div>
                             <div class="edit-window-row2-cl2-rows-rrr">
-                                <textarea class="textarea2"></textarea>
+                                <textarea id="aboutMeTextarea" class="textarea2"></textarea>
                             </div>
                         </div>
                         <div class="edit-window-row2-cl2-rows">
@@ -326,7 +249,7 @@ if(isset($_GET['id'])){
                                 <p>New password:</p>
                             </div>
                             <div class="edit-window-row2-cl2-rows-rrr">
-                                <textarea class="textarea3"></textarea>
+                                <textarea id="newPasswordField" class="textarea3"></textarea>
                             </div>
                         </div>
                         <div class="edit-window-row2-cl2-rows">
@@ -334,19 +257,19 @@ if(isset($_GET['id'])){
                                 <p>Repeat password:</p>
                             </div>
                             <div class="edit-window-row2-cl2-rows-rrr">
-                                <textarea class="textarea3"></textarea>
+                                <textarea id="repeatPasswordField" class="textarea3"></textarea>
                             </div>
                         </div>
                         <div class="edit-window-row2-cl2-rows-end">
                             <button class="buttonforedit1">Cancel</button>
-                            <button class="buttonforedit2">Save</button>
+                            <button class="buttonforedit2" id="saveButton">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <!-- Edit profile -->
 </body>
 
 </html>

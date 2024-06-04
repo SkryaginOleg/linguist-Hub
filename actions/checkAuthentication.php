@@ -24,7 +24,7 @@ if (isset($_POST['registration'])) {
             } else {
                 $default_image_path = "../IMG/user_male4-256.webp";
                 $default_user_photo = file_get_contents($default_image_path);
-                $password = md5($password);
+                
                 $insert_sql = "INSERT INTO `User` (full_name, email, password, photo) VALUES (:login, :email, :password, :default_user_photo)";
                 $insert_stmt = $pdo->prepare($insert_sql);
                 $insert_stmt->bindParam(':login', $login);

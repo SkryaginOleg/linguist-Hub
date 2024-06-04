@@ -195,14 +195,14 @@ session_start();
                     $query = $conn->query("SELECT photo FROM User WHERE user_id = {$userId}");
 
                     $row = $query->fetch_assoc();
-                    if (isset($row)) {
+                    if (isset($row['photo'])) {
                         $img = base64_encode($row['photo']);
                     } else {
                         $default_image_path = "IMG/user_male4-256.webp";
                         $img = base64_encode(file_get_contents($default_image_path));
                     }
 
-                    echo "<div class=\"dropdown\"><img src=\"data:image/jpeg;base64,$img\" class=\"profile-img\" alt=\"\">";
+                    echo "<div id=\"headerImage\" class=\"dropdown\"><img src=\"data:image/jpeg;base64,$img\" class=\"profile-img\" alt=\"\">";
                     echo "<div class=\"dropdown-content\">";
                     echo "<a href=\"profile.php\">Profile</a>";
                     echo "<a href=\"settings.php\">Settings</a>";

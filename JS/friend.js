@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const buttons = document.querySelectorAll('.custom-button, .custom1-button');
+    const buttons = document.querySelectorAll('.custom-button');
     const modals = document.querySelectorAll('.modal');
     const closeButtons = document.querySelectorAll('.close');
     const textField = document.getElementById('text-field');

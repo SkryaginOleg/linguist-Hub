@@ -29,7 +29,7 @@ html {
     height: 100vh;
 
     background-image: url('../IMG/fon.jpg');
-    background-size: contain; /* Изменено на contain */
+    background-size: contain;
     background-position: center;
 }
 
@@ -40,7 +40,6 @@ html {
     margin-bottom: 2px;
     display: flex;
 }
-
 
 .layout-list .chat-list li:hover {
     background: #efefef;
@@ -148,14 +147,14 @@ html {
     color: #606060;
     padding-left: 6px;
     font-size: 12px;
-    text-align: right; 
-    margin-top: 5px; 
+    text-align: right;
+    margin-top: 5px;
     height: auto;
 }
 
 .layout-chat .chat-messages .message-data-name {
-    color: #5f9ea0; 
-    font-size: 14px; 
+    color: #5f9ea0;
+    font-size: 14px;
 }
 
 .layout-chat .chat-messages .message {
@@ -167,7 +166,7 @@ html {
     display: inline-block;
     position: relative;
     max-width: 80%;
-    word-wrap: break-word; /* или overflow-wrap: break-word; */
+    word-wrap: break-word;
 }
 
 .layout-chat .chat-messages .message:after {
@@ -208,16 +207,21 @@ html {
     padding: 20px 220px;
 }
 
-.layout-chat .chat-message-send button{
+.layout-chat .chat-message-send button {
     border: 0 none;
     background-color: transparent;
+}
+
+#message_text {
+    resize: none;
+    overflow: hidden;
 }
 
 .online,
 .offline,
 .me {
     margin-right: 2px;
-    font-size: 8x;
+    font-size: 8px;
     vertical-align: middle;
 }
 

@@ -119,10 +119,11 @@ $(document).ready(function () {
     }
 
     function renderMessage(item) {
+        let messageText = item.text.replace(/\n/g, "<br>");
         if (item.user_id == getCookie('user')) {
             return `<li class="message-box my-message" data-message-id="${item.message_id}"> 
                 <div class="message float-right">
-                    ${item.text}
+                    ${messageText}
                     <div class="message-data-time">${formatTime(item.time)}</div>
                 </div>
             </li>`;
@@ -134,7 +135,7 @@ $(document).ready(function () {
                 </span>
                 <div class="message other-message">
                     <div class="message-data-name">${item.full_name}</div>
-                    ${item.text}
+                    ${messageText}
                     <div class="message-data-time">${formatTime(item.time)}</div>
                 </div>
             </div>
@@ -230,7 +231,7 @@ $(document).ready(function () {
         $(this).attr('class', 'active');
         currentChat = $(this).data('chat-id');
         lastId = 0;
-
+        autoScroll = true;
         $(".col-md-10").empty();
         $(".col-md-10").append(renderChatInfo(currentChat));
 

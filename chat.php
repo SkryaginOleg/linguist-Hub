@@ -18,10 +18,8 @@
     <div class="chat-app">
         <div id="layout-list" class="layout-list">
             <div class="input-group">
-
                 <input type="text" class="form-control" placeholder="Search...">
                 <span class="input-group-text"><span class="icon-plus" title="Создать чат"></span></span>
-
             </div>
             <ul class="list-unstyled chat-list mt-4 mb-0"><!-- CHAT--></ul>
         </div>
@@ -44,13 +42,36 @@
             <div class="chat-message-send">
                 <form id="chat-message-send">
                     <div class="input-group mb-0">
-                        <input type="text" id="message_text" class="form-control" placeholder="Введіть повідомлення...">
+                        <textarea id="message_text" class="form-control" placeholder="Введіть повідомлення..." rows="1" style="resize: none; overflow: hidden;"></textarea>
                         <span class="input-group-text"><button type="submit"><span class="icon-compass"></span></button></span>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            var textarea = $('#message_text');
+            textarea.on('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+
+            textarea.on('keydown', function (e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    $('#chat-message-send').submit();
+                }
+            });
+
+            $('#chat-message-send').on('submit', function (e) {
+                e.preventDefault();
+                textarea.val('');
+                textarea.css('height', 'auto');
+            });
+        });
+    </script>
 </body>
 
 </html>

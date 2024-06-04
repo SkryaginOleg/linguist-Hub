@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ua">
 
@@ -15,40 +14,37 @@
 </head>
 
 <body>
-<style>
-/*Error*/
+    <style>
+        /*Error*/
 
-.form__input.error {
-    border-bottom: 2px solid red;
-}
+        .form__input.error {
+            border-bottom: 2px solid red;
+        }
 
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-}
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
 
-.googlebtn {
-    height: 40px;
-    width: 200px;
-    color: black;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    border-radius: 5px;
-    border: 1px solid black;
-    margin-top: 10px;
-}
+        .googlebtn {
+            height: 40px;
+            width: 200px;
+            color: black;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 5px;
+            border: 1px solid black;
+            margin-top: 10px;
+        }
 
-.googlebtn img {
-    margin-right: 10px;
-    width: 25px;
-    height: 25px;  
-}
-
-
-
-</style>
+        .googlebtn img {
+            margin-right: 10px;
+            width: 25px;
+            height: 25px;
+        }
+    </style>
     <article class="container">
 
         <div class="block">
@@ -88,110 +84,115 @@
                 </p>
 
                 <?php
-require_once 'LibApi'.'/vendor/autoload.php';
+                session_start();
 
-$clientID = '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com';
-$clientSecret = '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';
-$redirectUri = 'http://localhost/registration.php';
+                require_once 'LibApi/vendor/autoload.php';
 
-$client = new Google\Client();
-$client->setClientId($clientID);
-$client->setClientSecret($clientSecret);
-$client->setRedirectUri($redirectUri);
-$client->addScope('email');
-$client->addScope('profile');
+                $clientID = '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com';
+                $clientSecret = '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';
+                $redirectUri = 'http://localhost/registration.php';
 
-// authenticate code Google OAUTH
-if (isset($_GET['code'])) {
-    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-    $client->setAccessToken($token['access_token']);
+                $client = new Google_Client();
+                $client->setClientId($clientID);
+                $client->setClientSecret($clientSecret);
+                $client->setRedirectUri($redirectUri);
+                $client->addScope('email');
+                $client->addScope('profile');
 
-    // get info
-    $google_oauth = new Google\Service\Oauth2($client);
-    $google_account_info = $google_oauth->userinfo->get();
-    $email = $google_account_info->email;
-    $name = $google_account_info->name;
-   
+                // authenticate code Google OAUTH
+                if (isset($_GET['code'])) {
+                    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+                    $client->setAccessToken($token['access_token']);
 
-    // DB finder
- require "DataBase/db.php";
+                    // get info
+                    $google_oauth = new Google\Service\Oauth2($client);
+                    $google_account_info = $google_oauth->userinfo->get();
+                    $email = $google_account_info->email;
+                    $name = $google_account_info->name;
 
-// DB finder
-require "DataBase/db.php";
 
-// Check if the connection was successful
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+                    // DB finder
+                    require "DataBase/db.php";
 
-// Prepare the query with placeholders
-$query = "SELECT * FROM `User` WHERE `User`.`full_name` = ? AND `email` = ?";
-$stmt = $conn->prepare($query);
+                    // DB finder
+                    require "DataBase/db.php";
 
-// Check if the prepare() call succeeded
-if (!$stmt) {
-    die("Error preparing statement: " . $conn->error);
-}
+                    // Check if the connection was successful
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
 
-// Bind parameters
-$stmt->bind_param("ss", $name, $email);
+                    // Prepare the query with placeholders
+                    $query = "SELECT * FROM `User` WHERE `User`.`full_name` = ? AND `email` = ?";
+                    $stmt = $conn->prepare($query);
 
-// Set parameters and execute
-$stmt->execute();
+                    // Check if the prepare() call succeeded
+                    if (!$stmt) {
+                        die("Error preparing statement: " . $conn->error);
+                    }
 
-// Get the result set
-$result = $stmt->get_result();
+                    // Bind parameters
+                    $stmt->bind_param("ss", $name, $email);
 
-// Check if there are rows returned
-if ($result->num_rows > 0) {
-    // Fetch the first row as an associative array
-    $user = $result->fetch_assoc();
-    
-    // Extract user ID
-    $user_id = $user["user_id"];
-    session_start();
-    $_SESSION['user'] = $user_id;
-    setcookie("user", $user_id, time() + 60*60*60);
-     header("Location: index.php");
-  
-} else {
-     // No user found, insert new user
-     $query = "INSERT INTO `User`(`User`.`full_name`, `email`,`password`,`photo`) VALUES (?, ?,1,?)";
-     $stmt = $conn->prepare($query);
-     
-     // Bind parameters for the insert statement
-     $stmt->bind_param("sss", $name, $email,$img);
-     
-     // Execute the insert statement
-     if ($stmt->execute()) {
-        $user_id = $stmt->insert_id;
-        setcookie('user', $user_id, time() + 60*60*60);
-        session_start();
-        $_SESSION['user'] = $user_id;
-        header("Location: index.php");
-     } else {
-         echo "Error inserting user: " . $conn->error;
-     }
+                    // Set parameters and execute
+                    $stmt->execute();
 
-}
+                    // Get the result set
+                    $result = $stmt->get_result();
 
-// Close the statement
-$stmt->close();
+                    // Check if there are rows returned
+                    if ($result->num_rows > 0) {
+                        // Fetch the first row as an associative array
+                        $user = $result->fetch_assoc();
 
-// Close the database connection
-$conn->close();
-}
-    $authUrl = $client->createAuthUrl();
-    echo '<a href="' . htmlspecialchars($authUrl) . '" style="display: inline-block; text-decoration: none; border: none; background: none; padding: 0;">
+                        // Extract user ID
+                        $user_id = $user["user_id"];
+                        setcookie("user", $user_id, time() + 60 * 60 * 60);
+                        $_SESSION['user'] = $user_id;
+
+                        header("Location: index.php");
+                    } else {
+                        // No user found, insert new user
+                        $query = "INSERT INTO `User`(`User`.`full_name`, `email`,`password`,`photo`) VALUES (?, ?,1,?)";
+                        $stmt = $conn->prepare($query);
+
+                        // Bind parameters for the insert statement
+                        $stmt->bind_param("sss", $name, $email, $img);
+
+                        // Execute the insert statement
+                        if ($stmt->execute()) {
+                            // Get the ID of the last inserted row
+                            $user_id = $conn->insert_id;
+
+                            // Set cookie with the new user's ID
+                            setcookie("user", $user_id, time() + 60 * 60 * 60);
+                            $_SESSION['user'] = $user_id;
+
+                            // Redirect to index.php
+                            header("Location: index.php");
+                            exit();
+                        } else {
+                            echo "Error inserting user: " . $conn->error;
+                        }
+                    }
+
+                    // Close the statement
+                    $stmt->close();
+
+                    // Close the database connection
+                    $conn->close();
+                }
+                $authUrl = $client->createAuthUrl();
+                echo '<a href="' . htmlspecialchars($authUrl) . '" style="display: inline-block; text-decoration: none; border: none; background: none; padding: 0;">
     <img src="https://onymos.com/wp-content/uploads/2020/10/google-signin-button.png" alt="Продовжити з Google" style="cursor: pointer; width: 230px; height: 60px; max-width: 300; max-height: 300;">
   </a>';
 
-?>
+                ?>
             </form>
 
 
 
-            <form method="post" class="form form_signup" id = "signupForm" name="signupForm">
+            <form method="post" class="form form_signup" id="signupForm" name="signupForm">
                 <h3 class="form__title">Реєстрація</h3>
 
                 <p><input type="login" class="form__input" placeholder="Логін" name="login" oninput="removeError('signupForm', 'login');"></p>
@@ -207,4 +208,5 @@ $conn->close();
         </div>
     </article>
 </body>
+
 </html>

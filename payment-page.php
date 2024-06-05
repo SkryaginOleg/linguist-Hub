@@ -6,7 +6,8 @@ $merchantAccount = "www_linguisthub_space";
 $merchantSecretKey = "434d63a19c6ac9c761a0c054b0b4ff9c7398dc57";
 $wayForPayApiUrl = "https://secure.wayforpay.com/pay";
 
-function generateSignature($data, $secretKey) {
+function generateSignature($data, $secretKey)
+{
     $hashString = implode(';', $data);
     return hash_hmac('md5', $hashString, $secretKey);
 }
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $productPrice = [$amount];
 
     $merchantDomainName = 'www.linguisthub.space';
-    
+
     $data = [
         'merchantAccount' => $merchantAccount,
         'merchantDomainName' => $merchantDomainName,
@@ -48,8 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,78 +61,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <style>
         body {
-    background: #f7f7f7;
-    font-family: 'Arial', sans-serif;
-}
+            background: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+        }
 
-.container {
-    max-width: 1200px;
-}
+        .container {
+            max-width: 1200px;
+        }
 
-.card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background: white;
-    margin-bottom: 20px;
-    transition: transform 0.3s;
-    display: flex;
-    flex-direction: column;
-}
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
 
-.card:hover {
-    transform: translateY(-10px);
-}
+        .card:hover {
+            transform: translateY(-10px);
+        }
 
-.card-title {
-    font-size: 20px;
-    margin-bottom: 15px;
-}
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
 
-.card-text {
-    font-size: 14px;
-    margin-bottom: 15px;
-}
+        .card-text {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
 
-.price {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-top: auto;
-}
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: auto;
+        }
 
-.old-price {
-    text-decoration: line-through;
-    color: #999;
-    margin-right: 10px;
-}
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 10px;
+        }
 
-.new-price {
-    color: #e74c3c;
-    font-size: 22px;
-    font-weight: bold;
-}
+        .new-price {
+            color: #e74c3c;
+            font-size: 22px;
+            font-weight: bold;
+        }
 
-.discount {
-    font-size: 14px;
-    color: #28a745;
-    margin-bottom: 20px;
-}
+        .discount {
+            font-size: 14px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
 
-.btn-primary {
-    background: #007bff;
-    border: none;
-    transition: background 0.3s;
-}
+        .btn-primary {
+            background: #007bff;
+            border: none;
+            transition: background 0.3s;
+        }
 
-.btn-primary:hover {
-    background: #0056b3;
-}
-
+        .btn-primary:hover {
+            background: #0056b3;
+        }
     </style>
+    <?php require "blocks/header.php"; ?>
     <div class="container mt-5">
         <h1 class="text-center mb-5">Choose Your VIP Membership</h1>
         <div class="row d-flex">
@@ -200,14 +205,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <?php if (!empty($data)): ?>
+    <?php if (!empty($data)) : ?>
         <form id="wayforpay-payment-form" method="POST" action="<?php echo $wayForPayApiUrl; ?>">
-            <?php foreach ($data as $key => $value): ?>
-                <?php if (is_array($value)): ?>
-                    <?php foreach ($value as $v): ?>
+            <?php foreach ($data as $key => $value) : ?>
+                <?php if (is_array($value)) : ?>
+                    <?php foreach ($value as $v) : ?>
                         <input type="hidden" name="<?php echo $key; ?>[]" value="<?php echo $v; ?>">
                     <?php endforeach; ?>
-                <?php else: ?>
+                <?php else : ?>
                     <input type="hidden" name="<?php echo $key; ?>" value="<?php echo $value; ?>">
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -216,9 +221,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             document.getElementById('wayforpay-payment-form').submit();
         </script>
     <?php endif; ?>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
 
+</html>

@@ -22,10 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_ids'])) {
         echo 'No users selected';
     }
 }
-?>
 
 
-<?php
 require('DataBase/db.php');
 
 if (isset($_COOKIE['user'])) {
@@ -76,8 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
 }
 
 $conn->close();
-?>
-<?php
+
+
 // Подключение к базе данных
 require('DataBase/db.php');
 
@@ -114,11 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['groupname'])) {
 
     $stmt->close();
     $conn->close();
-    exit; // Остановить выполнение PHP скрипта после вывода результата
+    exit; 
 }
-?>
 
-<?php
 require("DataBase/db.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['user_id'])) {
@@ -139,8 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $stmt->close();
     exit;
 }
-?>
-<?php
+
 require("DataBase/db.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'block' && isset($_POST['user_id'])) {
@@ -161,8 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $stmt->close();
     exit;
 }
-?>
-<?php
+
 require("DataBase/db.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'unblock' && isset($_POST['user_id'])) {
@@ -183,9 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $stmt->close();
     exit;
 }
-?>
 
-<?php
 require("DataBase/db.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add' && isset($_POST['user_id'])) {
@@ -208,17 +200,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 
 
-
-
-?>
-
-<?php
-// Включить отображение ошибок
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Подключение к базе данных
+
 require('DataBase/db.php');
 
 
@@ -247,7 +233,7 @@ if (isset($_POST['username'])) {
                             <p>' . htmlspecialchars($row['full_name']) . '</p>
                         </div>
                         <div class="m1cr2first1column2">
-                        <button class="add-friend" data-user-id="' . $row['user_id'] . '">Add</button> <!-- Добавлен класс .add-friend и data-user-id -->
+                        <button class="add-friend" data-user-id="' . $row['user_id'] . '">Add</button> 
                         </div>
                     
                   </div>';
@@ -261,12 +247,6 @@ if (isset($_POST['username'])) {
     exit; // Остановить выполнение PHP скрипта после вывода результата
 }
 ?>
-
-
-
-
-
-
 
 
 <!DOCTYPE html>
@@ -387,7 +367,7 @@ if (isset($_POST['username'])) {
 
                                                     <button onclick="toggleDropdown(this)" class="dropbtn"></button>
                                                     <div class="dropdown-content">
-                                                        <a href="profile.php?id=' . $row['user_id'] . '">Open profile</a>
+                                                        <a href="profile1.php?id=' . $row['user_id'] . '">Open profile</a>
                                                         <a href="#" class="block-user" data-user-id="' . $row['user_id'] . '">Block</a>
                                                         <a href="#">Create meeting</a>
                                                         <a href="#" class="delete-friend" data-user-id="' . $row['user_id'] . '">Delete from friends</a>

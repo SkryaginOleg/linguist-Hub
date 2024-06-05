@@ -112,12 +112,12 @@ session_start();
             }
         }
 
-        .dropdown {
+        .dropdown-header {
             position: relative;
             display: inline-block;
         }
 
-        .dropdown-content {
+        .dropdown-content-header {
             display: none;
             position: absolute;
             right: 0;
@@ -127,22 +127,22 @@ session_start();
             z-index: 1;
         }
 
-        .dropdown-content a {
+        .dropdown-content-header a {
             color: black;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
         }
 
-        .dropdown-content a:hover {
+        .dropdown-content-header a:hover {
             background-color: #ddd;
         }
 
-        .dropdown:hover .dropdown-content {
+        .dropdown-header:hover .dropdown-content-header {
             display: block;
         }
 
-        .dropdown:hover .profile-img {
+        .dropdown-header:hover .profile-img {
             border-color: #ffc107;
         }
     </style>
@@ -178,16 +178,12 @@ session_start();
                         echo "<li><a href=\"index.php\">Home</a></li>";
                     }
                     ?>
-                    <li><a href="main.php">Features</a></li>
                     <li><a href="payment-page.php">ViP</a></li>
                     <li><a href="chat.php">Chat</a></li>
-                    <li><a href="courses.php">Courses</a></li>
+                    <li><a href="friend.php">Friends</a></li>
                 </ul>
             </div>
             <div class="right-buttons">
-                <a href="basket.php" class="btn">
-                    <img src="IMG/bascet.png" width="25" height="22" alt="picture">
-                </a>
                 <?php
                 if (isset($_COOKIE['user'])) {
                     $userId = isset($_SESSION['user']) ? $_SESSION['user'] : $_COOKIE['user'];
@@ -202,8 +198,8 @@ session_start();
                         $img = base64_encode(file_get_contents($default_image_path));
                     }
 
-                    echo "<div id=\"headerImage\" class=\"dropdown\"><img src=\"data:image/jpeg;base64,$img\" class=\"profile-img\" alt=\"\">";
-                    echo "<div class=\"dropdown-content\">";
+                    echo "<div id=\"headerImage\" class=\"dropdown-header\"><img src=\"data:image/jpeg;base64,$img\" class=\"profile-img\" alt=\"\">";
+                    echo "<div class=\"dropdown-content-header\">";
                     echo "<a href=\"profile.php\">Profile</a>";
                     echo "<a href=\"settings.php\">Settings</a>";
                     echo "<a href=\"registration.php\">Logout</a>";

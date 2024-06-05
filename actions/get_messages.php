@@ -122,7 +122,19 @@ elseif ($_GET['action'] == 'get_chat') {
 //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE   //PROFILE
 
 elseif ($_GET['action'] == 'get_user') {
-    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
+
+    if (isset($_GET['other_user']) && $_GET['other_user'] == 1) {
+        if (isset($_SESSION['other_user'])) {
+            $userId = $_SESSION['other_user'];
+            error_log('Overwritten userId with other_user: ' . $userId);
+        } else {
+            error_log('$_SESSION[\'other_user\'] is not set.');
+        }
+    }
+    else{
+        $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
+    }
+
 
     if (!empty($userId)) {
         $sql = "SELECT full_name, email, country, information, birthday, ban_status, password, photo FROM User WHERE user_id = :userId";
@@ -153,7 +165,18 @@ elseif ($_GET['action'] == 'get_user') {
 } 
 
 elseif ($_GET['action'] == 'get_friends') {
-    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
+
+    if (isset($_GET['other_user']) && $_GET['other_user'] == 1) {
+        if (isset($_SESSION['other_user'])) {
+            $userId = $_SESSION['other_user'];
+            error_log('Overwritten userId with other_user: ' . $userId);
+        } else {
+            error_log('$_SESSION[\'other_user\'] is not set.');
+        }
+    }
+    else{
+        $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
+    }
 
     if (!empty($userId)) {
         $sql = "SELECT u.user_id, u.full_name, u.email, u.country, u.information, u.birthday, u.ban_status, u.photo 
@@ -278,7 +301,18 @@ else if (isset($_GET['action']) && $_GET['action'] === 'edit_data') {
 }
 
 else if (isset($_GET['action']) && $_GET['action'] === 'get_meetings') {
-    $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
+
+   if (isset($_GET['other_user']) && $_GET['other_user'] == 1) {
+        if (isset($_SESSION['other_user'])) {
+            $userId = $_SESSION['other_user'];
+            error_log('Overwritten userId with other_user: ' . $userId);
+        } else {
+            error_log('$_SESSION[\'other_user\'] is not set.');
+        }
+    }
+    else{
+        $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
+    }
 
     if (isset($userId)) {
         try {
@@ -357,27 +391,76 @@ else if (isset($_GET['action']) && $_GET['action'] === 'confirm_participation') 
 }
 
 
-else if (isset($_GET['action']) && $_GET['action'] === 'reject_participation') {
+else if (isset($_GET['action']) && $_GET['action'] === 'post_publication') {
     $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
-    $meetingId = isset($_POST['meeting_id']) ? intval($_POST['meeting_id']) : 0;
+    
+    if ($userId) {
+        if (isset($_FILES['img_upload']) && isset($_POST['text'])) {
+            $photo = $_FILES['img_upload'];
+            $text = $_POST['text'];
 
-    if ($userId && $meetingId) {
-        try {
-            $sql = "DELETE FROM Participants WHERE user_id = :user_id AND meeting_id = :meeting_id;";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-            $stmt->bindParam(':meeting_id', $meetingId, PDO::PARAM_INT);
+            if ($photo['error'] === UPLOAD_ERR_OK) {
+                $imageData = file_get_contents($photo['tmp_name']);
+                
+                try {
+                    $sql = "INSERT INTO Publication (user_id, photo, text, time) VALUES (:user_id, :photo, :text, NOW())";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+                    $stmt->bindParam(':photo', $imageData, PDO::PARAM_LOB);
+                    $stmt->bindParam(':text', $text, PDO::PARAM_STR);
 
-            if ($stmt->execute()) {
-                echo json_encode(['status' => 'success']);
+                    if ($stmt->execute()) {
+                        echo json_encode(['status' => 'success']);
+                    } else {
+                        echo json_encode(['status' => 'error', 'message' => 'Failed to insert publication.']);
+                    }
+                } catch (PDOException $e) {
+                    error_log('Database query error: ' . $e->getMessage());
+                    echo json_encode(['status' => 'error', 'message' => 'Internal Server Error']);
+                }
             } else {
-                echo json_encode(['status' => 'error', 'message' => 'Failed to update participation.']);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to read uploaded file.']);
             }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Missing image or text.']);
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid User ID']);
+    }
+}
+
+
+else if (isset($_GET['action']) && $_GET['action'] === 'get_publications') {
+    
+    if (isset($_GET['other_user']) && $_GET['other_user'] == 1) {
+        if (isset($_SESSION['other_user'])) {
+            $userId = $_SESSION['other_user'];
+            error_log('Overwritten userId with other_user: ' . $userId);
+        } else {
+            error_log('$_SESSION[\'other_user\'] is not set.');
+        }
+    }
+    else{
+        $userId = isset($_SESSION['user']) ? $_SESSION['user'] : intval($_COOKIE['user']);
+    }
+    
+    if ($userId) {
+        try {
+            $sql = "SELECT photo, text FROM Publication WHERE user_id =  $userId ORDER BY time DESC";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $publications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+            foreach ($publications as &$publication) {
+                $publication['photo'] = base64_encode($publication['photo']);
+            }
+        
+            echo json_encode($publications);
         } catch (PDOException $e) {
             error_log('Database query error: ' . $e->getMessage());
             echo json_encode(['status' => 'error', 'message' => 'Internal Server Error']);
         }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid User ID or Meeting ID']);
+        echo json_encode(['status' => 'error', 'message' => 'Invalid User ID']);
     }
 }

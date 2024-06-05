@@ -41,13 +41,13 @@
                     <button>Courses</button>
                 </div>
                 <div class="area2-part1-online-row">
-                    <button>Make publication</button>
+                    <button id="postPublicationButton">Make publication</button>
                 </div>
                 <div class="area2-part1-online-row">
                     <button id="createMeetingButton">New trip</button>
                 </div>
                 <div class="area2-part1-online-row">
-                    <button>Add friends</button>
+                <a href = "friend.php"><button>Add friends</button></a>
                 </div>
             </div>
             <div class="area2-part1-friends" id="friends-list">
@@ -71,27 +71,27 @@
                 </div>
                 <!-- Check meetings -->
 
-
-                <div id="modal2" class="modal">
-                    <div class="modal2-content">
-                        <div class="publication-box">
-                            <div class="publication-box-leftright-box">
-                                <button onclick="showPreviousPublication()">←</button>
-                            </div>
-                            <div class="publication-box-mid">
-                                <div class="publication-box-mid-photo">
-                                    <img id="publication-photo" src="">
+                <!-- Check publications -->
+                <div class="container">
+                    <div id="modal2" class="modal">
+                        <div class="modal2-content">
+                            <div class="publication-box">
+                                <button class="arrow-button" onclick="showPreviousPublication()">&#10094;</button>
+                                <div class="publication-box-mid">
+                                    <div class="publication-box-mid-photo">
+                                        <img id="publication-photo" src="" alt="Publication Photo">
+                                    </div>
+                                    <div class="publication-box-mid-info">
+                                        <p id="publication-text"></p>
+                                        <p id="publication-date"></p>
+                                    </div>
                                 </div>
-                                <div class="publication-box-mid-info">
-                                    <p id="publication-text"></p>
-                                </div>
-                            </div>
-                            <div class="publication-box-leftright-box">
-                                <button onclick="showNextPublication()">→</button>
+                                <button class="arrow-button" onclick="showNextPublication()">&#10095;</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Check publications -->
 
                 <div id="modal3" class="modal">
                     <div class="modal3-content">
@@ -344,6 +344,45 @@
         </div>
     </div>
     <!-- Make meetings -->
+
+    <!-- Make publication -->
+
+    <div id="postPublicationModal" class="modal-create-post">
+        <div class="modal1-create-content">
+            <div class="create-window">
+                <div class="create-window-row1">
+                    <h1>Create a post</h1>
+                </div>
+                <div class="create-window-row2">
+                    <div class="create-window-row2-cl1">
+                        <div class="image-container">
+                            <img id="publicationPhoto" src="" alt="Post Image">
+                            <div class="overlay" id="photoOverlayPublication">
+                                <img src="IMG/add_photo.png" alt="Change photo" class="overlay-image">
+                                <input type="file" id="fileInputPost" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="create-window-row2-cl2">
+                        <div class="create-window-row2-cl2-rows">
+                            <div class="create-window-row2-cl2-rows-rrr">
+                                <p>Description:</p>
+                            </div>
+                            <div class="create-window-row2-cl2-rows-rrr">
+                                <textarea id="descriptionField" class="textarea2"></textarea>
+                            </div>
+                        </div>
+                        <div class="create-window-row2-cl2-rows-end">
+                            <button class="buttonforcreate1">Cancel</button>
+                            <button class="buttonforcreate2" id="createButton">Create Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Make publication -->
+
 </body>
 
 </html>

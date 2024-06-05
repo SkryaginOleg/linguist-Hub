@@ -84,15 +84,13 @@
                 </p>
 
                 <?php
-                session_start();
-
-                require_once 'LibApi/vendor/autoload.php';
+                require_once 'LibApi' . '/vendor/autoload.php';
 
                 $clientID = '519186468841-tanr04jan9kdhatf1m0hflvpqojj4snj.apps.googleusercontent.com';
                 $clientSecret = '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';
                 $redirectUri = 'http://localhost/registration.php';
 
-                $client = new Google_Client();
+                $client = new Google\Client();
                 $client->setClientId($clientID);
                 $client->setClientSecret($clientSecret);
                 $client->setRedirectUri($redirectUri);
@@ -147,9 +145,9 @@
 
                         // Extract user ID
                         $user_id = $user["user_id"];
-                        setcookie("user", $user_id, time() + 60 * 60 * 60);
+                        session_start();
                         $_SESSION['user'] = $user_id;
-
+                        setcookie("user", $user_id, time() + 60 * 60 * 60);
                         header("Location: index.php");
                     } else {
                         // No user found, insert new user
@@ -161,16 +159,11 @@
 
                         // Execute the insert statement
                         if ($stmt->execute()) {
-                            // Get the ID of the last inserted row
-                            $user_id = $conn->insert_id;
-
-                            // Set cookie with the new user's ID
-                            setcookie("user", $user_id, time() + 60 * 60 * 60);
+                            $user_id = $stmt->insert_id;
+                            setcookie('user', $user_id, time() + 60 * 60 * 60);
+                            session_start();
                             $_SESSION['user'] = $user_id;
-
-                            // Redirect to index.php
                             header("Location: index.php");
-                            exit();
                         } else {
                             echo "Error inserting user: " . $conn->error;
                         }

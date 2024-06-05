@@ -127,18 +127,20 @@ body {
     overflow: hidden;
 }
 
-.area2-part1-friends-row1 h1{
+.area2-part1-friends-row1 h1 {
     font-size: 24px;
     color: #56c9dd;
     margin-left: 10px;
     text-decoration: none;
 }
-a{
+
+a {
     text-decoration: none;
 }
-a:hover{
+
+a:hover {
     text-decoration: underline;
-    text-decoration-color: #56c9dd; 
+    text-decoration-color: #56c9dd;
     text-decoration-thickness: 2px;
 }
 
@@ -357,12 +359,13 @@ nav {
 
 .scroll-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     height: 100%;
     overflow-y: scroll;
     scroll-behavior: smooth;
+    flex-direction: column;
 }
 
 
@@ -509,16 +512,6 @@ nav {
     position: relative;
 }
 
-.modal1-edit-content-meeting{
-    background-color: #fff;
-    padding: 20px;
-    width: 80%;
-    max-width: 950px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    margin: auto;
-    position: relative;
-}
 
 .edit-window {
     display: flex;
@@ -582,7 +575,8 @@ nav {
     font-size: 16px;
 }
 
-.textarea3, .textarea2 {
+.textarea3,
+.textarea2 {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -611,7 +605,8 @@ nav {
     gap: 10px;
 }
 
-.buttonforedit1, .buttonforedit2 {
+.buttonforedit1,
+.buttonforedit2 {
     padding: 10px 20px;
     font-size: 16px;
     color: white;
@@ -657,13 +652,13 @@ nav {
     align-items: center;
     border-radius: 50%;
     opacity: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     transition: opacity 0.3s;
     padding: 2px;
 }
 
 .overlay-image {
-    width: 50px; 
+    width: 50px;
     height: 50px;
     opacity: 0.7;
 }
@@ -700,17 +695,7 @@ nav {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+/* Check meetings */
 .meetup-list {
     margin-top: 30px;
     width: 100%;
@@ -721,14 +706,14 @@ nav {
 }
 
 .meetup-card {
-    width: calc(50% - 10px); 
+    width: calc(50% - 10px);
     background-color: #ffffff;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     position: relative;
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 .meetup-header {
@@ -831,4 +816,155 @@ nav {
     font-size: 24px;
     color: #4CAF50;
 }
+/* Check meetings */
 
+
+/* Make meetings  */
+.modal-create-meeting {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal1-edit-content-meeting {
+    background-color: #fff;
+    padding: 20px;
+    width: 80%;
+    max-width: 950px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin: auto;
+    position: relative;
+}
+
+.container-meeting {
+    width: 90%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.title-meeting {
+    text-align: center;
+    color: #333;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-left {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.friends-right {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+form div,
+.friends-right div {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.button-meeting {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button-meeting:hover {
+    background-color: #45a049;
+}
+
+.friend-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.friend-checkbox img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.friend-checkbox label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.friend-checkbox input {
+    margin-right: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 43px;
+    resize: none;
+    overflow: hidden;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-button:hover {
+    color: #f00;
+}
+
+/* Make meetings  */

@@ -51,9 +51,7 @@
                 </div>
             </div>
             <div class="area2-part1-friends" id="friends-list">
-                <div class="area2-part1-friends-row1">
-                    <h1>Best friends</h1>
-                </div>
+                <div class="area2-part1-friends-row1"></div>
             </div>
         </div>
         <div class="area2-part2">
@@ -270,6 +268,82 @@
         </div>
     </div>
     <!-- Edit profile -->
+
+    <!-- Make meetings -->
+    <div id="createMeetingModal" class="modal-create-meeting">
+        <div class="modal1-edit-content-meeting">
+            <div class="container-meeting">
+                <button class="close-button" id="closeModalButton">&times;</button>
+                <h1 class="title-meeting">Create a New Meeting</h1>
+                <div class="form-container">
+                    <form id="createMeetingForm" class="form-left">
+                        <div>
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" name="title" maxlength="100" required>
+                            <span class="error-message" id="title-error"></span>
+                        </div>
+                        <div>
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" required></textarea>
+                            <span class="error-message" id="description-error"></span>
+                        </div>
+                        <div>
+                            <label for="language_to_practice">Language to Practice:</label>
+                            <input type="text" id="language_to_practice" name="language_to_practice" maxlength="50" required>
+                            <span class="error-message" id="language-error"></span>
+                        </div>
+                        <div>
+                            <label for="proficiency_level">Proficiency Level:</label>
+                            <input type="text" id="proficiency_level" name="proficiency_level" maxlength="20" required>
+                            <span class="error-message" id="proficiency-error"></span>
+                        </div>
+                        <div>
+                            <label for="date_time">Date and Time:</label>
+                            <input type="datetime-local" id="date_time" name="date_time" required>
+                            <span class="error-message" id="datetime-error"></span>
+                        </div>
+                        <div>
+                            <label for="duration">Duration (hours):</label>
+                            <input type="number" id="duration" name="duration" required>
+                            <span class="error-message" id="duration-error"></span>
+                        </div>
+                        <div>
+                            <label for="format">Format (online/offline):</label>
+                            <select id="format" name="format" required>
+                                <option value="online">Online</option>
+                                <option value="offline">Offline</option>
+                            </select>
+                            <span class="error-message" id="format-error"></span>
+                        </div>
+                        <div>
+                            <label for="location">Location:</label>
+                            <input type="text" id="location" name="location" maxlength="255" required>
+                            <span class="error-message" id="location-error"></span>
+                        </div>
+                        <button class="button-meeting" type="submit">Create Meeting</button>
+                    </form>
+                    <div class="friends-right">
+                        <div>
+                            <label for="friendsSearch">Search Friends:</label>
+                            <input type="text" id="friendsSearch" placeholder="Search by name...">
+                        </div>
+                        <div>
+                            <label for="friendsFilter">Filter by Country:</label>
+                            <select id="friendsFilter">
+                                <option value="">All Countries</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="friends">Invite Friends:</label>
+                            <div id="friendsList"></div>
+                            <span class="error-message" id="friends-error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Make meetings -->
 </body>
 
 </html>

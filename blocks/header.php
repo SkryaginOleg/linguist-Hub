@@ -179,7 +179,7 @@ session_start();
                     }
                     ?>
                     <li><a href="main.php">Features</a></li>
-                    <li><a href="upload.php">Img</a></li>
+                    <li><a href="payment-page.php">ViP</a></li>
                     <li><a href="chat.php">Chat</a></li>
                     <li><a href="courses.php">Courses</a></li>
                 </ul>
